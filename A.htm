@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>挪车通知系统</title>
+	<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+	<meta charset="utf-8">
+</head>
+<body>
+	<div style="border:0px #ccc solid;border-radius:10px;width:75%;height:700px;background-color:#c6e1ff;margin:0px auto;">
+		<div style="height:160px;"></div>
+		<div id="inputDIV">
+			<h2><center>请输入您的手机号码以通知车主：
+				<br><input id='mobile_number' style="border:0px #ccc solid;border-radius:10px;height:50px;width:45%;"></input>&nbsp;&nbsp;
+				<button id="check_input" style="width:100px;height:50px;border:0px #ccc solid;border-radius:10px;"><h3>OK</h3></button></center></h2>
+		</div>
+		<div id="display_fail">
+			<h2><center>您输入的手机号码有误，请检查后再试。</center></h2>
+			<br><h2><center>温馨提示：请输入11位半角数字；暂不支持虚拟运营商或物联网卡的手机号。</center></h2>
+			<br><center><button style="width:100px;height:50px;border:0px #ccc solid;border-radius:10px;"><h3>返回重试</h3></button></center>
+		</div>
+		<div id="display_success">
+			<h2><center>已成功将挪车消息推送到车主手机，请稍候...</center></h2>
+		</div>
+	</div>
+
+	<script language="javascript">
+		var mobile_check = /^(1[3,5,8-9][0-9]{9}|17[2-8][0-9]{8}|166[0-9]{8})$/ig;
+		$("#display_fail").hide();
+		$("#display_success").hide();
+		$("#check_input").click(function(){
+			var mobileNum = $("#mobile_number").val();//clickNo保存被点击的编号 $("#imgBox Img").hide();
+			var result = mobile_check.test(mobileNum);
+			$("#inputDIV").hide();
+			if (result == true) {
+				$("#display_success").show();
+				$.post("https://api.day.app/j7FXgnpxhMrnKjvxFFA9JM/有人扫描了奥迪的挪车二维码/点击通知以复制他的手机号 " + mobileNum + "?automaticallyCopy=1&copy=" + mobileNum);
+			} else {
+				$("#display_fail").show();
+			}
+		});
+		$("#display_fail").click(function(){
+			$("#display_fail").hide();
+			$("#inputDIV").show();
+		});
+	</script>
+</body>
+</html>
